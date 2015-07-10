@@ -1,17 +1,70 @@
 package info.billjordan.funfacts;
 
+import android.app.LauncherActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //fake local data
+        String[] tempCategoriesArray = {"Category 1",
+                "Category 2",
+                "Category 3"
+        };
+
+        ArrayList<String> categories = new ArrayList<String>(Arrays.asList(tempCategoriesArray));
+
+
+        //get listView
+        ListView categoryListView = (ListView) this.findViewById(R.id.list_view_categories);
+
+        //make adapter
+        ArrayAdapter<String> categoryArrayAdapter = new ArrayAdapter<String>(
+                //current context
+                getBaseContext(),
+                //id of list item layout
+                R.layout.list_item_category,
+                //id of textview to populate
+                R.id.category_label,
+                //list of data
+                categories
+        );
+
+        //set adapter
+        categoryListView.setAdapter(categoryArrayAdapter);
+
+        //add onClick listener to listViewItems
+        categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(
+                        getBaseContext(),
+                        ((TextView)view.findViewById(R.id.category_label)).getText(),
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
     }
 
     @Override
