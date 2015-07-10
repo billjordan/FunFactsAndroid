@@ -1,78 +1,74 @@
 package info.billjordan.funfacts;
 
-import android.app.LauncherActivity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
-
+public class FactListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_fact_list);
 
-        //fake local data
-        String[] tempCategoriesArray = {"Category 1",
-                "Category 2",
-                "Category 3"
+        //get the intent
+        Intent intent = getIntent();
+
+        //set the tempTextView for debugging
+        TextView titleTextView = (TextView)this.findViewById(R.id.fact_list_title);
+        titleTextView.setText(intent.getStringExtra("category") + " Fact List");
+
+
+         //fake local data
+        String[] tempCategoriesArray = {
+                "Fact 1",
+                "Fact 2",
+                "Fact 3"
         };
 
-        ArrayList<String> categories = new ArrayList<String>(Arrays.asList(tempCategoriesArray));
+        ArrayList<String> facts = new ArrayList<String>(Arrays.asList(tempCategoriesArray));
 
 
         //get listView
-        ListView categoryListView = (ListView) this.findViewById(R.id.list_view_categories);
+        ListView factListView = (ListView) this.findViewById(R.id.list_view_facts);
 
         //make adapter
-        ArrayAdapter<String> categoryArrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> factArrayAdapter = new ArrayAdapter<String>(
                 //current context
                 getBaseContext(),
                 //id of list item layout
-                R.layout.list_item_category,
+                R.layout.list_item_fact,
                 //id of textview to populate
-                R.id.category_label,
+                R.id.fact_label,
                 //list of data
-                categories
+                facts
         );
 
         //set adapter
-        categoryListView.setAdapter(categoryArrayAdapter);
+        factListView.setAdapter(factArrayAdapter);
 
         //add onClick listener to listViewItems
-        categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        factListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(
                         getBaseContext(),
-                        ((TextView)view.findViewById(R.id.category_label)).getText(),
+                        ((TextView) view.findViewById(R.id.fact_label)).getText(),
                         Toast.LENGTH_SHORT
                 ).show();
-                Intent intent = new Intent(getBaseContext(), FactListActivity.class);
-                intent.putExtra(
-                        "category",
-                        ((TextView) view.findViewById(R.id.category_label)).getText()
-                );
-                //nescessary to start new activity from outside activity
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getBaseContext().startActivity(intent);
             }
         });
     }
@@ -80,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_fact_list, menu);
         return true;
     }
 
