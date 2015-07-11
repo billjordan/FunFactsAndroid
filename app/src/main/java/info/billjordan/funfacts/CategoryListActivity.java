@@ -1,61 +1,38 @@
 package info.billjordan.funfacts;
 
-import android.app.LauncherActivity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class CategoryListActivity extends AppCompatActivity {
 
+
+    private ListView categoryListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //fake local data
-        Category[] tempCategoriesArray = new Category[]{
-                new Category("Category 1", 1),
-                new Category("Category 2", 2),
-                new Category("Category 3", 3),
-        };
-
-        final ArrayList<Category> categories = new ArrayList<Category>(Arrays.asList(tempCategoriesArray));
+        FetchCategoriesTask fetchCategoriesTask = new FetchCategoriesTask(this);
+        fetchCategoriesTask.execute();
 
 
         //get listView
-        ListView categoryListView = (ListView) this.findViewById(R.id.list_view_categories);
+        categoryListView = (ListView) this.findViewById(R.id.list_view_categories);
 
-        //make adapter
-        ArrayAdapter<Category> categoryArrayAdapter = new ArrayAdapter<Category>(
-                //current context
-                getBaseContext(),
-                //id of list item layout
-                R.layout.list_item_category,
-                //id of textview to populate
-                R.id.category_label,
-                //list of data
-                categories
-        );
 
-        //set adapter
-        categoryListView.setAdapter(categoryArrayAdapter);
 
         //add onClick listener to listViewItems
         categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -63,14 +40,14 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(
                         getBaseContext(),
-                        ((TextView)view.findViewById(R.id.category_label)).getText(),
+                        ((TextView) view.findViewById(R.id.category_label)).getText(),
                         Toast.LENGTH_SHORT
                 ).show();
                 Intent intent = new Intent(getBaseContext(), FactListActivity.class);
                 intent.putExtra(
                         "category",
-                        categories.get(position)
-                );
+                        (Category) categoryListView.getAdapter().getItem(position)
+                        );
                 //nescessary to start new activity from outside activity
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getBaseContext().startActivity(intent);
@@ -99,4 +76,26 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * set the data for the list view adapter
+     * @param categories - ArrayList<Category>
+     */
+    public void setCategoryListViewAdapter(ArrayList<Category> categories){
+        ArrayAdapter <Category> newCategoryArrayAdapter = new ArrayAdapter<Category>(
+                //current context
+                getBaseContext(),
+                //id of list item layout
+                R.layout.list_item_category,
+                //id of textview to populate
+                R.id.category_label,
+                //list of data
+                categories
+        );
+
+        categoryListView.setAdapter(newCategoryArrayAdapter);
+
+    }
+
+
 }
