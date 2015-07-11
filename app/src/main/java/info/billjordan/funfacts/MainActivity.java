@@ -30,19 +30,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //fake local data
-        String[] tempCategoriesArray = {"Category 1",
-                "Category 2",
-                "Category 3"
+        Category[] tempCategoriesArray = new Category[]{
+                new Category("Category 1", 1),
+                new Category("Category 2", 2),
+                new Category("Category 3", 3),
         };
 
-        ArrayList<String> categories = new ArrayList<String>(Arrays.asList(tempCategoriesArray));
+        final ArrayList<Category> categories = new ArrayList<Category>(Arrays.asList(tempCategoriesArray));
 
 
         //get listView
         ListView categoryListView = (ListView) this.findViewById(R.id.list_view_categories);
 
         //make adapter
-        ArrayAdapter<String> categoryArrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<Category> categoryArrayAdapter = new ArrayAdapter<Category>(
                 //current context
                 getBaseContext(),
                 //id of list item layout
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), FactListActivity.class);
                 intent.putExtra(
                         "category",
-                        ((TextView) view.findViewById(R.id.category_label)).getText()
+                        categories.get(position)
                 );
                 //nescessary to start new activity from outside activity
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

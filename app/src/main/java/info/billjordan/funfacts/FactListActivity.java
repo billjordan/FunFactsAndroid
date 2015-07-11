@@ -26,10 +26,11 @@ public class FactListActivity extends AppCompatActivity {
 
         //get the intent
         Intent intent = getIntent();
+        Category category = (Category) intent.getParcelableExtra("category");
 
         //set the tempTextView for debugging
         TextView titleTextView = (TextView)this.findViewById(R.id.fact_list_title);
-        titleTextView.setText(intent.getStringExtra("category") + " Fact List");
+        titleTextView.setText(category.getLabel() + " Fact List");
 
 
          //fake local data
