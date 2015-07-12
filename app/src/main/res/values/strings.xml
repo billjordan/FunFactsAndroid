@@ -6,4 +6,7 @@
     <string name="category_title">Categories</string>
     <string name="title_activity_fact_list">FactListActivity</string>
     <string name="fact_list_title">Fact List Title</string>
+    <string name="title_activity_fact">FactActivity</string>
+    <string name="button_view_fact_answer">View Answer</string>
+    <string name="text_view_fact_answer"></string>
 </resources>

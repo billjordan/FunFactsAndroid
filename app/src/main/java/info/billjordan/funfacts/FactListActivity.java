@@ -1,9 +1,9 @@
 package info.billjordan.funfacts;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,10 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class FactListActivity extends AppCompatActivity {
+
+//    private ArrayAdapter<Fact> factArrayAdapter;
+    private ListView factListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,41 +27,25 @@ public class FactListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fact_list);
 
         //get the intent
-        Intent intent = getIntent();
-        Category category = (Category) intent.getParcelableExtra("category");
+        Intent callingCategoryListActivityIntent = getIntent();
+        Category category = (Category) callingCategoryListActivityIntent.getParcelableExtra("category");
+
+        //get facts from server
+        FetchFactsTask fetchFactsTask = new FetchFactsTask(this, category.getId());
+        fetchFactsTask.execute();
 
         //set the tempTextView for debugging
         TextView titleTextView = (TextView)this.findViewById(R.id.fact_list_title);
         titleTextView.setText(category.getLabel() + " Fact List");
 
 
-         //fake local data
-        String[] tempCategoriesArray = {
-                "Fact 1",
-                "Fact 2",
-                "Fact 3"
-        };
 
-        ArrayList<String> facts = new ArrayList<String>(Arrays.asList(tempCategoriesArray));
+
 
 
         //get listView
-        ListView factListView = (ListView) this.findViewById(R.id.list_view_facts);
+        factListView = (ListView) this.findViewById(R.id.list_view_facts);
 
-        //make adapter
-        ArrayAdapter<String> factArrayAdapter = new ArrayAdapter<String>(
-                //current context
-                getBaseContext(),
-                //id of list item layout
-                R.layout.list_item_fact,
-                //id of textview to populate
-                R.id.fact_label,
-                //list of data
-                facts
-        );
-
-        //set adapter
-        factListView.setAdapter(factArrayAdapter);
 
         //add onClick listener to listViewItems
         factListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -67,9 +53,19 @@ public class FactListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(
                         getBaseContext(),
-                        ((TextView) view.findViewById(R.id.fact_label)).getText(),
+                        ((Fact) factListView.getAdapter().getItem(position)).getLabel() + "--"
+                                + String.valueOf(((Fact) factListView.getAdapter().getItem(position)).getId()),
                         Toast.LENGTH_SHORT
                 ).show();
+                Intent newFactActivityIntent = new Intent(getBaseContext(), FactActivity.class);
+                newFactActivityIntent.putExtra(
+                        "fact",
+                        ((Fact) factListView.getAdapter().getItem(position))
+                );
+                newFactActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                try{getBaseContext().startActivity(newFactActivityIntent);}
+                catch (Exception e){Log.d("FLA", e.toString());}
+                
             }
         });
     }
@@ -94,5 +90,26 @@ public class FactListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    /**
+     * set the data for the list view adapter
+     * @param facts - ArrayList<Fact>
+     */
+    public void setFactListViewAdapter(ArrayList<Fact> facts){
+        ArrayAdapter <Fact> newCategoryArrayAdapter = new ArrayAdapter<Fact>(
+                //current context
+                getBaseContext(),
+                //id of list item layout
+                R.layout.list_item_category,
+                //id of textview to populate
+                R.id.category_label,
+                //list of data
+                facts
+        );
+
+        factListView.setAdapter(newCategoryArrayAdapter);
+
     }
 }

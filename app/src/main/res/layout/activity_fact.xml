@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="info.billjordan.funfacts.FactActivity"
+    android:orientation="vertical"
+    >
+
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="LOGO PLACEHOLDER"
+        android:background="#0000FF"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textColor="#FFFFFF"/>
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_view_debugging"
+        android:text="Text Field for debugging"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_view_fact_question"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_view_fact_answer"
+        android:id="@+id/button_view_fact_answer"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_view_fact_answer"
+        android:text="@string/text_view_fact_answer"
+        />
+
+</LinearLayout>
