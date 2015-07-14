@@ -15,6 +15,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by bill on 7/11/15.
@@ -109,7 +111,18 @@ public class FetchFactsTask extends AsyncTask{
                 for (int i = 0; i < factJsonList.length(); i++) {
                     String label = ((JSONObject) factJsonList.get(i)).getString("label");
                     int id = ((JSONObject) factJsonList.get(i)).getInt("ID");
-                    facts.add(new Fact(label, id));
+                    String question = ((JSONObject) factJsonList.get(i)).getString("question");
+                    String correctAnswerNumber = ((JSONObject)factJsonList.get(i)).getString("correct_answer_number");
+                    int categoryId = ((JSONObject) factJsonList.get(i)).getInt("category_id");
+                    //python dict
+                    JSONObject jsonAnswers = ((JSONObject)factJsonList.get(i)).getJSONObject("answers");
+                    HashMap<String, String> answers = new HashMap<String, String>();
+                    for(int j = 1; j <= jsonAnswers.length(); j++){
+                        String key = String.valueOf(j);
+                        String value = jsonAnswers.getString(key);
+                        answers.put(key, value);
+                    }
+                    facts.add(new Fact(label, id, question, answers, correctAnswerNumber, categoryId));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

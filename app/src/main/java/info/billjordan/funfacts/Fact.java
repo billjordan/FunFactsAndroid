@@ -3,6 +3,9 @@ package info.billjordan.funfacts;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by bill on 7/11/15.
  */
@@ -11,6 +14,9 @@ public class Fact implements Parcelable {
     private int id;
     private String question;
     private String answer;
+    private HashMap<String, String> answers;
+    private String correctAnswerNumber;
+    private int categoryId;
 
 
     public Fact(String label, int id) {
@@ -20,18 +26,61 @@ public class Fact implements Parcelable {
         this.answer = "Fact Answer Placeholder";
     }
 
+    /**
+     *
+     * @param label
+     * @param id
+     * @param question
+     * @param answers
+     * @param correctAnswerNumber
+     * @param categoryId
+     */
+    public Fact(String label,
+                int id,
+                String question,
+                HashMap<String, String> answers,
+                String correctAnswerNumber,
+                int categoryId
+    ){
+        this.label = label;
+        this.id = id;
+        this.question = question;
+        this.answers = answers;
+        this.correctAnswerNumber = correctAnswerNumber;
+        this.categoryId = categoryId;
+        this.answer = answers.get(correctAnswerNumber);
+    }
+
     private Fact (Parcel in){
         this.label = in.readString();
         this.id = in.readInt();
         this.question = in.readString();
         this.answer = in.readString();
+        //this.answers = in.readMap(answers, Map<String, String>.class);
+        //see write to Parcel
+        int answersMapSize = in.readInt();
+        for(int i=0; i < answersMapSize; i++){
+            String key = in.readString();
+            String value = in.readString();
+            this.answers.put(key, value);
+        }
+        this.correctAnswerNumber = in.readString();
+        this.categoryId = in.readInt();
     }
 
+    public String getAnswerNumber(int number){
+        return answers.get(String.valueOf(number));
+    }
+
+    public String getAnswerNumber(String number){
+        return answers.get(number);
+    }
 
     public String getLabel() {
         return label;
     }
 
+    //returns correct answer
     public String getAnswer() {
         return answer;
     }
@@ -87,6 +136,15 @@ public class Fact implements Parcelable {
         dest.writeInt(id);
         dest.writeString(question);
         dest.writeString(answer);
+        //dest.writeMap(answers);
+        //writeMap is deprecated
+        dest.writeInt(answers.size());
+        for(Map.Entry<String, String> entry : answers.entrySet()){
+            dest.writeString(entry.getKey());
+            dest.writeString(entry.getValue());
+        }
+        dest.writeString(correctAnswerNumber);
+        dest.writeInt(categoryId);
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator(){
