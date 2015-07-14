@@ -45,4 +45,20 @@
         android:text="@string/text_view_fact_answer"
         />
 
+    <com.facebook.share.widget.ShareButton
+        android:id="@+id/shareButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+    <Button
+        android:id="@+id/tweetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tweet"
+        android:background="@drawable/twitter_button"
+        android:textColor="@color/twitter_text"
+        />
+
+
 </LinearLayout>

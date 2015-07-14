@@ -25,7 +25,8 @@ import java.util.ArrayList;
 public class FetchCategoriesTask extends AsyncTask {
 
     private static final String LOG_TAG = "FetchCategoriesTask";
-    private static final String fqdn = "192.168.1.127";
+//    private static final String fqdn = "192.168.1.127";
+    private static final String fqdn = "www.billjordan.info";
     private static final String portNumber = "10080";
     private static final String path = "categories";
     private CategoryListActivity categoryListActivity;
