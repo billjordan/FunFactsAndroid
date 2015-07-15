@@ -2,63 +2,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="info.billjordan.funfacts.FactActivity"
     android:orientation="vertical"
-    >
+    tools:context="info.billjordan.funfacts.FactActivity">
 
-
-
-    <TextView
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="LOGO PLACEHOLDER"
-        android:background="#0000FF"
-        android:gravity="center"
-        android:textSize="30dp"
-        android:textColor="#FFFFFF"/>
+        android:layout_weight="1"
+        android:orientation="vertical">
 
 
-    <TextView
+        <include layout="@layout/text_view_logo" />
+
+
+<ScrollView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/text_view_debugging"
-        android:text="Text Field for debugging"
-        />
+        android:orientation="vertical"
+        android:padding="20dp"
+        >
+        <TextView
+            android:id="@+id/text_view_debugging"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Text Field for debugging" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_view_fact_question"
-        />
+        <TextView
+            android:id="@+id/text_view_fact_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_view_fact_answer"
-        android:id="@+id/button_view_fact_answer"
-        />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_view_fact_answer"
-        android:text="@string/text_view_fact_answer"
-        />
+        <!--ANSWERS-->
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
-    <com.facebook.share.widget.ShareButton
-        android:id="@+id/shareButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+            <RadioButton
+                android:id="@+id/radio_button_answer_1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked" />
 
-    <Button
-        android:id="@+id/tweetButton"
-        android:layout_width="wrap_content"
+            <RadioButton
+                android:id="@+id/radio_button_answer_2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked" />
+
+            <RadioButton
+                android:id="@+id/radio_button_answer_3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked" />
+
+            <RadioButton
+                android:id="@+id/radio_button_answer_4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/button_view_fact_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_view_fact_answer" />
+
+        <TextView
+            android:id="@+id/text_view_fact_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_view_fact_answer" />
+    </LinearLayout>
+</ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="tweet"
-        android:background="@drawable/twitter_button"
-        android:textColor="@color/twitter_text"
-        />
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <com.facebook.share.widget.ShareButton
+            android:id="@+id/shareButton"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight=".5"
+            android:background="@drawable/fb_button"
+            />
+
+        <LinearLayout
+            android:id="@+id/tweet_button_linear_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight=".5"
+            android:background="@drawable/twitter_button"
+            android:orientation="horizontal" >
+            <TextView
+                android:id="@+id/twitter_icon_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/twitter_icon"
+                android:textColor="@color/twitter_text"
+                android:layout_weight=".1"
+                android:padding="10dp"
+                android:textSize="20dp"
+                />
+            <TextView
+                android:id="@+id/tweet_button_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TWEET"
+                android:textColor="@color/twitter_text"
+                android:layout_weight=".9"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

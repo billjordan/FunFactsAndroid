@@ -27,7 +27,6 @@ public class Fact implements Parcelable {
     }
 
     /**
-     *
      * @param label
      * @param id
      * @param question
@@ -41,7 +40,7 @@ public class Fact implements Parcelable {
                 HashMap<String, String> answers,
                 String correctAnswerNumber,
                 int categoryId
-    ){
+    ) {
         this.label = label;
         this.id = id;
         this.question = question;
@@ -51,7 +50,7 @@ public class Fact implements Parcelable {
         this.answer = answers.get(correctAnswerNumber);
     }
 
-    private Fact (Parcel in){
+    private Fact(Parcel in) {
         this.label = in.readString();
         this.id = in.readInt();
         this.question = in.readString();
@@ -59,7 +58,8 @@ public class Fact implements Parcelable {
         //this.answers = in.readMap(answers, Map<String, String>.class);
         //see write to Parcel
         int answersMapSize = in.readInt();
-        for(int i=0; i < answersMapSize; i++){
+        this.answers = new HashMap<String, String>();
+        for (int i = 0; i < answersMapSize; i++) {
             String key = in.readString();
             String value = in.readString();
             this.answers.put(key, value);
@@ -68,11 +68,11 @@ public class Fact implements Parcelable {
         this.categoryId = in.readInt();
     }
 
-    public String getAnswerNumber(int number){
+    public String getAnswerNumber(int number) {
         return answers.get(String.valueOf(number));
     }
 
-    public String getAnswerNumber(String number){
+    public String getAnswerNumber(String number) {
         return answers.get(number);
     }
 
@@ -91,6 +91,10 @@ public class Fact implements Parcelable {
 
     public int getId() {
         return id;
+    }
+
+    public String getCorrectAnswerNumber() {
+        return correctAnswerNumber;
     }
 
     /**
@@ -139,7 +143,7 @@ public class Fact implements Parcelable {
         //dest.writeMap(answers);
         //writeMap is deprecated
         dest.writeInt(answers.size());
-        for(Map.Entry<String, String> entry : answers.entrySet()){
+        for (Map.Entry<String, String> entry : answers.entrySet()) {
             dest.writeString(entry.getKey());
             dest.writeString(entry.getValue());
         }
@@ -147,7 +151,7 @@ public class Fact implements Parcelable {
         dest.writeInt(categoryId);
     }
 
-    public static final Parcelable.Creator CREATOR = new Parcelable.Creator(){
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         /**
          * Create a new instance of the Parcelable class, instantiating it
          * from the given Parcel whose data had previously been written by

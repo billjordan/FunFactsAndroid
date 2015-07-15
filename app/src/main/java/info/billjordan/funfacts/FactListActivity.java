@@ -1,6 +1,7 @@
 package info.billjordan.funfacts;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,6 +26,10 @@ public class FactListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fact_list);
+
+        TextView logoTextView = (TextView) findViewById(R.id.text_view_logo);
+        Typeface logoTypeFace = Typeface.createFromAsset(getAssets(), getString(R.string.logo_font));
+        logoTextView.setTypeface(logoTypeFace);
 
         //get the intent
         Intent callingCategoryListActivityIntent = getIntent();
@@ -51,12 +56,12 @@ public class FactListActivity extends AppCompatActivity {
         factListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(
-                        getBaseContext(),
-                        ((Fact) factListView.getAdapter().getItem(position)).getLabel() + "--"
-                                + String.valueOf(((Fact) factListView.getAdapter().getItem(position)).getId()),
-                        Toast.LENGTH_SHORT
-                ).show();
+//                Toast.makeText(
+//                        getBaseContext(),
+//                        ((Fact) factListView.getAdapter().getItem(position)).getLabel() + "--"
+//                                + String.valueOf(((Fact) factListView.getAdapter().getItem(position)).getId()),
+//                        Toast.LENGTH_SHORT
+//                ).show();
                 Intent newFactActivityIntent = new Intent(getBaseContext(), FactActivity.class);
                 newFactActivityIntent.putExtra(
                         "fact",

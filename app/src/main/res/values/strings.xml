@@ -10,4 +10,6 @@
     <string name="button_view_fact_answer">View Answer</string>
     <string name="text_view_fact_answer"></string>
     <string name="facebook_app_id">398313367040175</string>
+    <string name="twitter_icon">&#xf081;</string>
+    <string name="logo_font">fonts/VIPESI__.TTF</string>
 </resources>

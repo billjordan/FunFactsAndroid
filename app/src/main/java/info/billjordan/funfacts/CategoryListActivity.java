@@ -1,6 +1,7 @@
 package info.billjordan.funfacts;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -23,10 +24,14 @@ public class CategoryListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_category_list);
 
         FetchCategoriesTask fetchCategoriesTask = new FetchCategoriesTask(this);
         fetchCategoriesTask.execute();
+
+        TextView logoTextView = (TextView) findViewById(R.id.text_view_logo);
+        Typeface logoTypeFace = Typeface.createFromAsset(getAssets(), getString(R.string.logo_font));
+        logoTextView.setTypeface(logoTypeFace);
 
 
         //get listView
