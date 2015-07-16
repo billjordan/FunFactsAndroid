@@ -41,7 +41,7 @@ public class FactListActivity extends AppCompatActivity {
 
         //set the tempTextView for debugging
         TextView titleTextView = (TextView)this.findViewById(R.id.fact_list_title);
-        titleTextView.setText(category.getLabel() + " Fact List");
+        titleTextView.setText(category.getLabel() + " Facts");
 
 
 

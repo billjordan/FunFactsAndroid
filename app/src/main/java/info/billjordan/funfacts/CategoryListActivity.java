@@ -43,11 +43,11 @@ public class CategoryListActivity extends AppCompatActivity {
         categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(
-                        getBaseContext(),
-                        ((TextView) view.findViewById(R.id.category_label)).getText(),
-                        Toast.LENGTH_SHORT
-                ).show();
+//                Toast.makeText(
+//                        getBaseContext(),
+//                        ((TextView) view.findViewById(R.id.category_label)).getText(),
+//                        Toast.LENGTH_SHORT
+//                ).show();
                 Intent intent = new Intent(getBaseContext(), FactListActivity.class);
                 intent.putExtra(
                         "category",

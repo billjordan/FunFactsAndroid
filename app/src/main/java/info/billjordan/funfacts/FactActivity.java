@@ -24,6 +24,7 @@ import com.facebook.share.widget.ShareDialog;
 public class FactActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "FactActivityLog";
+    private static final String URL_LINE_BREAK = "%0D%0A"; //line break
     private Fact fact;
     private TextView questionTextView;
     private TextView answerTextView;
@@ -56,11 +57,11 @@ public class FactActivity extends AppCompatActivity {
         fact = (Fact) callingFactListActivityIntent.getParcelableExtra("fact");
 
 
-        TextView debugTextView = (TextView) findViewById(R.id.text_view_debugging);
-        debugTextView.setText(
-                fact.getLabel() + "---"
-                        + String.valueOf(fact.getId())
-        );
+//        TextView debugTextView = (TextView) findViewById(R.id.text_view_debugging);
+//        debugTextView.setText(
+//                fact.getLabel() + "---"
+//                        + String.valueOf(fact.getId())
+//        );
 
         questionTextView = (TextView) findViewById(R.id.text_view_fact_question);
 
@@ -103,7 +104,8 @@ public class FactActivity extends AppCompatActivity {
         shareButton.setBackgroundColor(getResources().getColor(R.color.com_facebook_button_background_color));
         shareContent = new ShareLinkContent.Builder()
                 .setContentTitle("Fun Fact")
-                .setContentDescription(fact.getQuestion() + "\n\n" + fact.getAnswer())
+                .setContentDescription(fact.getQuestion() + "<center><br></center>" + "ANSWER: "
+                        +fact.getAnswer())
                 .setContentUrl(Uri.parse("http://www.billjordan.info:10080"))
 //                        .setImageUrl(Uri.parse("http://developers.facebook.com/android"))
                 .build();
@@ -112,7 +114,7 @@ public class FactActivity extends AppCompatActivity {
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "FB SHARE BUTTON", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), "FB SHARE BUTTON", Toast.LENGTH_SHORT).show();
                 shareDialog.show(shareContent);
             }
         });
@@ -125,8 +127,12 @@ public class FactActivity extends AppCompatActivity {
         tweetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tweetUrl = "https://twitter.com/intent/tweet?text=PUT TEXT HERE &url="
-                        + "https://www.google.com";
+                String tweetUrl = "https://twitter.com/intent/tweet?text="
+                        + fact.getQuestion()
+                        + URL_LINE_BREAK
+                        + "ANSWER: " + fact.getAnswer()
+                        + URL_LINE_BREAK
+                        + "&url=http://www.billjordan.info:10080";
                 Uri uri = Uri.parse(tweetUrl);
                 startActivity(new Intent(Intent.ACTION_VIEW, uri));
             }
@@ -174,21 +180,21 @@ public class FactActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.radio_button_answer_1:
                 selectedAnswerNumber = "1";
-                Toast.makeText(getBaseContext(), selectedAnswerNumber, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), selectedAnswerNumber, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.radio_button_answer_2:
                 selectedAnswerNumber = "2";
-                Toast.makeText(getBaseContext(), selectedAnswerNumber, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), selectedAnswerNumber, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.radio_button_answer_3:
-                Toast.makeText(getBaseContext(), ((RadioButton) view).getText(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), ((RadioButton) view).getText(), Toast.LENGTH_SHORT).show();
                 selectedAnswerNumber = "3";
-                Toast.makeText(getBaseContext(), selectedAnswerNumber, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), selectedAnswerNumber, Toast.LENGTH_SHORT).show();
                 break;
             case R.id.radio_button_answer_4:
-                Toast.makeText(getBaseContext(), ((RadioButton) view).getText(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), ((RadioButton) view).getText(), Toast.LENGTH_SHORT).show();
                 selectedAnswerNumber = "4";
-                Toast.makeText(getBaseContext(), selectedAnswerNumber, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), selectedAnswerNumber, Toast.LENGTH_SHORT).show();
                 break;
         }
     }

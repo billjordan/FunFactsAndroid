@@ -2,7 +2,7 @@
 <resources>
     <color name="twitter_blue">#55acee</color>
     <color name="twitter_text">#FFFFFF</color>
-    <color name="correct_answer">#00FF00</color>
+    <color name="correct_answer">#00AA60</color>
     <color name="incorrect_answer">#FF0000</color>
     <color name="fun_facts_blue">#0FAFF2</color>
 </resources>

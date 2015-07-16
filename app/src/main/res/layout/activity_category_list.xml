@@ -11,7 +11,12 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/category_title"/>
+        android:text="@string/category_title"
+        android:textColor="@color/fun_facts_blue"
+        android:padding="5dp"
+        android:paddingLeft="10dp"
+        android:textSize="20dp"
+        />
 
     <ListView
         android:layout_width="fill_parent"

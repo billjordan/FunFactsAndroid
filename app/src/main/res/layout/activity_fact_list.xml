@@ -12,6 +12,10 @@
         android:layout_height="wrap_content"
         android:text="@string/fact_list_title"
         android:id="@+id/fact_list_title"
+        android:textColor="@color/fun_facts_blue"
+        android:padding="5dp"
+        android:paddingLeft="10dp"
+        android:textSize="20dp"
         />
 
 
